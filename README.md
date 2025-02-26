@@ -32,9 +32,10 @@ where `P_URI` and `F_URI` are replaced with their respective values.
 
 | program           | tag  | program ID                                   |
 | ----------------- | ---- | -------------------------------------------- |
-| autocrat          | v0.4 | autowMzCbM29YXMgVG3T62Hkgo7RcyrvgQQkd54fDQL  |
-| amm               | v0.4 | AMMyu265tkBpRW21iGQxKGLaves3gKm2JcMUqfXNSpqD |
-| conditional_vault | v0.4 | VLTX1ishMBbcX3rdBWGssxawAo1Q2X2qxYFYqiGodVg  |
+| launchpad         | develop | AfJJJ5UqxhBKoE3grkKAZZsoXDE9kncbMKvqSHGsCNrE |
+| autocrat          | develop | autowMzCbM29YXMgVG3T62Hkgo7RcyrvgQQkd54fDQL  |
+| amm               | develop | AMMyu265tkBpRW21iGQxKGLaves3gKm2JcMUqfXNSpqD |
+| conditional_vault | develop | VLTX1ishMBbcX3rdBWGssxawAo1Q2X2qxYFYqiGodVg  |
 | autocrat          | v0.3 | autoQP9RmUNkzzKRXsMkWicDVZ3h29vvyMDcAYjCxxg  |
 | amm               | v0.3 | AMM5G2nxuKUwCLRYTW7qqEwuoqCtNSjtbipwEmm2g8bH |
 | conditional_vault | v0.3 | VAU1T7S5UuEHmMvXtXMVmpEoQtZ2ya7eRb7gcN47wDp  |

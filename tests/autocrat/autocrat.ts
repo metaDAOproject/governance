@@ -42,6 +42,7 @@ import {
   getAmmLpMintAddr,
   getVaultAddr,
   AmmMath,
+  getEventAuthorityAddr,
 } from "@metadaoproject/futarchy/v0.4";
 import { PriceMath } from "@metadaoproject/futarchy/v0.4";
 import {
@@ -550,6 +551,9 @@ export default function suite() {
       await mintToOverride(context, treasuryMetaAccount, 1_000_000_000n);
       await mintToOverride(context, treasuryUsdcAccount, 1_000_000n);
 
+
+    const [autocratEventAuthority] = getEventAuthorityAddr(autocrat.programId);
+
       const accounts = [
         {
           pubkey: dao,
@@ -559,6 +563,17 @@ export default function suite() {
         {
           pubkey: daoTreasury,
           isSigner: true,
+          isWritable: false,
+        },
+        // Need the below for anchor events
+        {
+          pubkey: autocratEventAuthority,
+          isSigner: false,
+          isWritable: false,
+        },
+        {
+          pubkey: autocrat.programId,
+          isSigner: false,
           isWritable: false,
         },
       ];

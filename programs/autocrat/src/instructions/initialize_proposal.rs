@@ -14,6 +14,7 @@ pub struct InitializeProposalParams {
 
 #[derive(Accounts)]
 #[instruction(args: InitializeProposalParams)]
+#[event_cpi]
 pub struct InitializeProposal<'info> {
     #[account(
         init,
@@ -107,6 +108,9 @@ impl InitializeProposal<'_> {
             );
         }
 
+        // Should never be the case because the oracle is the proposal account, and you can't re-initialize a proposal
+        assert!(!self.question.is_resolved());
+
         Ok(())
     }
 
@@ -128,6 +132,8 @@ impl InitializeProposal<'_> {
             proposer,
             token_program,
             system_program: _,
+            event_authority: _,
+            program: _,
         } = ctx.accounts;
 
         let InitializeProposalParams {
@@ -205,7 +211,7 @@ impl InitializeProposal<'_> {
             description_url,
             slot_enqueued: clock.slot,
             state: ProposalState::Pending,
-            instruction,
+            instruction: instruction.clone(),
             pass_amm: pass_amm.key(),
             fail_amm: fail_amm.key(),
             base_vault: base_vault.key(),
@@ -216,6 +222,26 @@ impl InitializeProposal<'_> {
             nonce,
             pda_bump: ctx.bumps.proposal,
             question: question.key(),
+        });
+
+        emit_cpi!(InitializeProposalEvent {
+            common: CommonFields::new(&clock),
+            proposal: proposal.key(),
+            dao: dao.key(),
+            question: question.key(),
+            pass_amm: pass_amm.key(),
+            fail_amm: fail_amm.key(),
+            base_vault: base_vault.key(),
+            quote_vault: quote_vault.key(),
+            pass_lp_mint: pass_lp_mint.key(),
+            fail_lp_mint: fail_lp_mint.key(),
+            proposer: proposer.key(),
+            nonce,
+            number: dao.proposal_count,
+            pass_lp_tokens_locked: pass_lp_tokens_to_lock,
+            fail_lp_tokens_locked: fail_lp_tokens_to_lock,
+            pda_bump: ctx.bumps.proposal,
+            instruction,
         });
 
         Ok(())

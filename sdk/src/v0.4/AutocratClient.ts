@@ -113,6 +113,10 @@ export class AutocratClient {
     );
   }
 
+  getProgramId(): PublicKey {
+    return this.autocrat.programId;
+  }
+
   async getProposal(proposal: PublicKey): Promise<Proposal> {
     return this.autocrat.account.proposal.fetch(proposal);
   }

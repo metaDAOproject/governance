@@ -7,7 +7,7 @@
     },
     "dependencies": {
         "@coral-xyz/anchor": "0.29.0",
-        "@metadaoproject/futarchy": "0.4.0-alpha.23",
+        "@metadaoproject/futarchy": "0.4.0-alpha.41",
         "@metaplex-foundation/mpl-token-metadata": "^3.2.0",
         "@metaplex-foundation/umi": "^0.9.1",
         "@metaplex-foundation/umi-bundle-defaults": "^0.9.1",

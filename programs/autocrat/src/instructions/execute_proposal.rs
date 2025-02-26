@@ -1,6 +1,7 @@
 use super::*;
 
 #[derive(Accounts)]
+#[event_cpi]
 pub struct ExecuteProposal<'info> {
     #[account(mut, has_one = dao)]
     pub proposal: Account<'info, Proposal>,
@@ -18,7 +19,12 @@ impl ExecuteProposal<'_> {
     }
 
     pub fn handle(ctx: Context<Self>) -> Result<()> {
-        let ExecuteProposal { proposal, dao } = ctx.accounts;
+        let ExecuteProposal {
+            proposal,
+            dao,
+            event_authority: _,
+            program: _,
+        } = ctx.accounts;
 
         proposal.state = ProposalState::Executed;
 
@@ -34,6 +40,14 @@ impl ExecuteProposal<'_> {
         }
 
         solana_program::program::invoke_signed(&svm_instruction, ctx.remaining_accounts, signer)?;
+
+        let clock = Clock::get()?;
+
+        emit_cpi!(ExecuteProposalEvent {
+            common: CommonFields::new(&clock),
+            proposal: proposal.key(),
+            dao: dao.key(),
+        });
 
         Ok(())
     }

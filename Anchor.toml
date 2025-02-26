@@ -1,17 +1,3 @@
-[scripts]
-test = "npx mocha --import=tsx tests/main.test.ts"
-propose = "yarn run ts-node scripts/initializeProposal.ts"
-initialize-dao = "yarn run ts-node scripts/initializeDao.ts"
-finalize = "yarn run ts-node scripts/finalizeProposal.ts"
-metadata = "yarn run ts-node scripts/uploadMetadata.ts"
-send-tokens = "yarn run ts-node scripts/sendTokens.ts"
-crank = "yarn run ts-node scripts/crankTwap.ts"
-attach-metadata = "yarn run ts-node scripts/attachMetadata.ts"
-reclaim-tokens = "yarn run ts-node scripts/reclaimTokens.ts"
-merge-tokens = "yarn run ts-node scripts/mergeTokens.ts"
-setup-devnet = "yarn run tsx scripts/setupDevnet.ts"
-add-v03-metadata = "yarn run tsx scripts/addV03Metadata.ts"
-
 [toolchain]
 
 [features]
@@ -20,9 +6,10 @@ skip-lint = false
 
 [programs.localnet]
 amm = "AMMyu265tkBpRW21iGQxKGLaves3gKm2JcMUqfXNSpqD"
-autocrat_migrator = "MigRDW6uxyNMDBD8fX2njCRyJC4YZk2Rx9pDUZiAESt"
 autocrat = "autowMzCbM29YXMgVG3T62Hkgo7RcyrvgQQkd54fDQL"
+autocrat_migrator = "MigRDW6uxyNMDBD8fX2njCRyJC4YZk2Rx9pDUZiAESt"
 conditional_vault = "VLTX1ishMBbcX3rdBWGssxawAo1Q2X2qxYFYqiGodVg"
+launchpad = "AfJJJ5UqxhBKoE3grkKAZZsoXDE9kncbMKvqSHGsCNrE"
 optimistic_timelock = "tiME1hz9F5C5ZecbvE5z6Msjy8PKfTqo1UuRYXfndKF"
 
 [registry]
@@ -32,6 +19,11 @@ url = "https://api.apr.dev"
 cluster = "Localnet"
 wallet = "~/.config/solana/id.json"
 
+[scripts]
+test = "npx mocha --import=tsx tests/main.test.ts"
+add-v03-metadata = "yarn run tsx scripts/addV03Metadata.ts"
+setup-devnet = "yarn run tsx scripts/setupDevnet.ts"
+initialize-launch = "yarn run tsx scripts/initializeLaunch.ts"
 
 [test]
 startup_wait = 5000

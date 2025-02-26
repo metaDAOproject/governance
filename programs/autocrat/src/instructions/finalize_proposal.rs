@@ -3,6 +3,7 @@ use conditional_vault::{cpi::accounts::ResolveQuestion, ResolveQuestionArgs};
 use super::*;
 
 #[derive(Accounts)]
+#[event_cpi]
 pub struct FinalizeProposal<'info> {
     #[account(mut,
         has_one = question,
@@ -81,6 +82,8 @@ impl FinalizeProposal<'_> {
             vault_program,
             token_program,
             vault_event_authority,
+            event_authority: _,
+            program: _,
         } = ctx.accounts;
 
         let proposer_key = proposal.proposer;
@@ -168,6 +171,18 @@ impl FinalizeProposal<'_> {
             cpi_ctx,
             ResolveQuestionArgs { payout_numerators },
         )?;
+
+        let clock = Clock::get()?;
+
+        emit_cpi!(FinalizeProposalEvent {
+            common: CommonFields::new(&clock),
+            proposal: proposal.key(),
+            dao: dao.key(),
+            pass_market_twap,
+            fail_market_twap,
+            threshold,
+            state: new_proposal_state,
+        });
 
         Ok(())
     }

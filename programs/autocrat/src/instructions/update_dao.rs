@@ -11,6 +11,7 @@ pub struct UpdateDaoParams {
 }
 
 #[derive(Accounts)]
+#[event_cpi]
 pub struct UpdateDao<'info> {
     #[account(mut, has_one = treasury)]
     pub dao: Account<'info, Dao>,
@@ -35,6 +36,20 @@ impl UpdateDao<'_> {
         update_dao_if_passed!(twap_max_observation_change_per_update);
         update_dao_if_passed!(min_quote_futarchic_liquidity);
         update_dao_if_passed!(min_base_futarchic_liquidity);
+
+        dao.seq_num += 1;
+
+        let clock = Clock::get()?;
+        emit_cpi!(UpdateDaoEvent {
+            common: CommonFields::new(&clock),
+            dao: dao.key(),
+            pass_threshold_bps: dao.pass_threshold_bps,
+            slots_per_proposal: dao.slots_per_proposal,
+            twap_initial_observation: dao.twap_initial_observation,
+            twap_max_observation_change_per_update: dao.twap_max_observation_change_per_update,
+            min_quote_futarchic_liquidity: dao.min_quote_futarchic_liquidity,
+            min_base_futarchic_liquidity: dao.min_base_futarchic_liquidity,
+        });
 
         Ok(())
     }

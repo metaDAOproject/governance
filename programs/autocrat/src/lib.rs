@@ -35,10 +35,12 @@ use conditional_vault::Question;
 pub mod error;
 pub mod instructions;
 pub mod state;
+pub mod events;
 
-pub use crate::error::AutocratError;
-pub use crate::instructions::*;
-pub use crate::state::*;
+pub use error::AutocratError;
+pub use instructions::*;
+pub use state::*;
+pub use events::*;
 
 use amm::state::Amm;
 

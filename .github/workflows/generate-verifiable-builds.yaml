@@ -56,3 +56,20 @@ jobs:
         with:
           default_author: github_actions
           message: 'Update amm verifiable build'
+  generate-verifiable-launchpad:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: metadaoproject/anchor-verifiable-build@v0
+        with:
+          program: launchpad
+          anchor-version: '0.29.0'
+          solana-cli-version: '1.17.16'
+      - run: 'git pull --rebase'
+      - run: cp target/deploy/launchpad.so ./verifiable-builds
+      - name: Commit verifiable build back to mainline
+        uses: EndBug/add-and-commit@v9.1.4
+        with:
+          default_author: github_actions
+          message: 'Update launchpad verifiable build'
+

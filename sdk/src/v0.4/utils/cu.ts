@@ -1,5 +1,5 @@
 export const MaxCUs = {
-  initializeDao: 30_000,
+  initializeDao: 40_000,
   createIdempotent: 25_000,
   initializeConditionalVault: 45_000,
   mintConditionalTokens: 35_000,

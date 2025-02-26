@@ -8,6 +8,10 @@ test() {
     find programs tests sdk | entr -sc 'anchor build && (cd sdk && yarn build) && RUST_LOG= anchor test --skip-build'
 }
 
+test_logs() {
+    find programs tests sdk | entr -sc 'anchor build && (cd sdk && yarn build) && anchor test --skip-build'
+}
+
 build_vault() {
     find programs | entr -sc 'anchor build -p conditional_vault'
 }
@@ -90,6 +94,7 @@ bankrun_logs() {
 case "$1" in
     build) build ;;
     test) test ;;
+    test_logs) test_logs ;;
     vault) test_vault ;;
     build_vault) build_vault ;;
     test_no_build) test_no_build ;;

@@ -35,4 +35,5 @@ pub struct Dao {
     /// 10 * 1_000_000_000 (10 META).
     pub min_quote_futarchic_liquidity: u64,
     pub min_base_futarchic_liquidity: u64,
+    pub seq_num: u64,
 }
